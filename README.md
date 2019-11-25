@@ -17,7 +17,9 @@ Yacas comes with extensive documentation covering the scripting language, the fu
 * [Downloads](http://www.yacas.org/getting_started/downloads/)
 
 ## Screenshots
+
 _Console_
 ![Yacas Console](http://www.yacas.org/images/screenshot-yacas.png)
+
 _GUI_
 ![Yacas GUI](http://www.yacas.org/images/screenshot-yagy-on_mac.png)
