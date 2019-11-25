@@ -1,5 +1,6 @@
 pkgname=yacas
-pkgver=1.6.1
+pkgver=1.7.0
+_docver=1.6.1
 pkgrel=1
 pkgdesc='Yet another computer algebra system'
 url='http://www.yacas.org/'
@@ -7,17 +8,17 @@ screenshot='https://dl.dropbox.com/s/dy9evnpl13kdo21/yacas-console.png'
 license=('GPL2')
 groups=("mathematics")
 arch=('x86_64')
-depends=('qtwebkit-tp' 'gstreamer' 'libxext' 'openssl')
-makedepends=('gcc' 'cmake' 'perl' 'python3-sphinx')
+depends=('nspr' 'qtwebengine' 'zstd')
+makedepends=('gcc' 'cmake' 'perl' 'nodejs')
 optdepends=('gnuplot' 'links' 'texmacs' 'okular: Reading EPUB manual')
 install=${pkgname}.install
 noextract=('yacas.epub')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/grzegorzmazur/yacas/archive/v${pkgver}.tar.gz"
-        "https://media.readthedocs.org/epub/yacas/v${pkgver}/yacas.epub"
+        "https://media.readthedocs.org/epub/yacas/v${_docver}/yacas.epub"
         "yacas.desktop"
         "yacas-docs.desktop"
         )
-md5sums=('c955d95b2eee79a59b6df5a2002814de'  # yacas source
+md5sums=('cd91867dba8aa858643d4bb9777f608c'  # yacas source
          '1278f790a15792996931c2adc56dd8aa'  # Epub manual
          'eb776002fabe21623716ed2642f6d365'  # yacas.desktop
          '04d2a47c02fba5d88f337a404e02929c'  # yacas-docs.desktop
@@ -28,10 +29,13 @@ build() {
   [ -d build ] && rm -rf build
   mkdir build
   cd build
+  # ENABLE_DOCS=ON requires a lot of missing sphinx packages in KaOS
   msg "### cmake" ; cmake .. \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DENABLE_CYACAS_CONSOLE=ON \
     -DENABLE_CYACAS_GUI=ON \
+    -DENABLE_CYACAS_UNIT_TESTS=OFF \
+    -DENABLE_CYACAS_BENCHMARKS=OFF \
     -DENABLE_JYACAS=OFF \
     -DENABLE_DOCS=OFF \
     -DENABLE_CYACAS_KERNEL=OFF \
